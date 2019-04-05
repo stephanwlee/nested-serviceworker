@@ -1,0 +1,20 @@
+<body>
+HTML C
+<script>
+setInterval(() => {
+  fetch('../data/baz.json')
+}, 7000);
+</script>
+<script>
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/c/sw.js').then(function(registration) {
+      registration.update();
+      // Registration was successful
+      console.log('C ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('C ServiceWorker registration failed: ', err);
+    });
+  });
+</script>
+</body>

@@ -1,0 +1,24 @@
+<body>
+HTML B
+<script>
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(registration) {
+      registration.update();
+      // Registration was successful
+      console.log('B ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('B ServiceWorker registration failed: ', err);
+    });
+
+    navigator.serviceWorker.oncontrollerchange = function() {
+      console.log('page B is now controlled by:', navigator.serviceWorker.controller);
+    };
+  });
+</script>
+<script>
+setInterval(() => {
+  fetch('../data/bar.json')
+}, 7000);
+</script>
+</body>
