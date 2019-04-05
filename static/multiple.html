@@ -1,0 +1,41 @@
+<body>
+HTML A that renders B and C
+<script>
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(registration) {
+      // Registration was successful
+      // registration.update();
+      console.log('Main ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('Main ServiceWorker registration failed: ', err);
+    });
+
+    navigator.serviceWorker.register('./sw2.js').then(function(registration) {
+      // Registration was successful
+      // registration.update();
+      console.log('Second ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('Second ServiceWorker registration failed: ', err);
+    });
+
+    navigator.serviceWorker.oncontrollerchange = function() {
+      console.log('page Main is now controlled by:', navigator.serviceWorker.controller);
+    };
+  });
+</script>
+<div><iframe id="b" src="/b/index.html"></iframe></div>
+<div><iframe id="c"></iframe></div>
+<script>
+  setInterval(() => {
+    fetch('/data/foo.json')
+    fetch('/data/faz.json')
+  }, 5000);
+</script>
+<script>
+fetch('/c/index.html')
+  .then(res => res.text())
+  .then(content => document.getElementById('c').srcdoc = content);
+</script>
+</body>

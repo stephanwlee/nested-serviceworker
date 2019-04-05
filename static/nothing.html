@@ -1,0 +1,24 @@
+<body>
+HTML A that renders nothing
+<script>
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('./sw.js').then(function(registration) {
+      // Registration was successful
+      // registration.update();
+      console.log('Main ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('Main ServiceWorker registration failed: ', err);
+    });
+
+    navigator.serviceWorker.oncontrollerchange = function() {
+      console.log('page Main is now controlled by:', navigator.serviceWorker.controller);
+    };
+  });
+</script>
+<script>
+  setInterval(() => {
+    fetch('/data/foo.json')
+  }, 5000);
+</script>
+</body>
